@@ -13,7 +13,16 @@ class Audience {
         this.bag = bag;
     }
 
-    public Bag getBag() {
-        return bag;
+    public Long buy(Ticket ticket) {
+        this.bag.setTicket(ticket);
+
+        // 초대권이 있을시
+        if (this.bag.hasInvitation()) {
+            return 0L;
+        }
+
+        // 초대권이 없을시 금액 차감 후 티켓 전달
+        this.bag.minusAmount(ticket.getFee());
+        return ticket.getFee();
     }
 }
